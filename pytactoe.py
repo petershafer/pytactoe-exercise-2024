@@ -1,45 +1,33 @@
-def createBoard():
-    return [
-        [None, None, None],
-        [None, None, None],
-        [None, None, None],
-    ]
+from grid import Grid3x3
 
-def setRow(grid, row, value):
-    for i in range(len(grid)):
-        if i == row:
-            for j in range(len(grid[i])):
-                grid[i][j] = value
+def createBoard():
+    return Grid3x3()
 
 def winsByRow():
     grids = [createBoard(), createBoard(), createBoard()]
     for i in range(len(grids)):
-        setRow(grids[i], i, True)
+        grids[i].setRow(i, [True, True, True])
     return grids
-
-def setCol(grid, col, value):
-    for i in range(len(grid)):
-        for j in range(len(grid[i])):
-            if j == col:
-                grid[i][j] = value
 
 def winsByCol():
     grids = [createBoard(), createBoard(), createBoard()]
     for i in range(len(grids)):
-        setCol(grids[i], i, True)
+        grids[i].setColumn(i, [True, True, True])
     return grids
 
 def winsByDiag():
     tlbr = createBoard()
-    for i in range(len(tlbr)):
-        for j in range(len(tlbr[i])):
-            if i == j:
-                tlbr[i][j] = True
+    def winsA(value, position):
+        i, j = position
+        if i == j:
+            return True
+    tlbr.map(winsA)
     trbl = createBoard()
-    for i in range(len(trbl)):
-        for j in range(len(trbl[i])):
-            if len(trbl) - i - 1 == j:
-                trbl[i][j] = True
+    def winsB(value, position):
+        i, j = position
+        if 3 - i - 1 == j:
+            return True
+    trbl.map(winsB)
     return [tlbr, trbl]
 
 def winningBoards():
@@ -51,28 +39,20 @@ def winningBoards():
 
 def normalizeBoardForPlayer(board, player):
     normalizedBoard = createBoard()
-    for i in range(len(board)):
-        for j in range(len(board[i])):
-            if board[i][j] == player:
-                normalizedBoard[i][j] = True
-            else:
-                normalizedBoard[i][j] = None
+    def normalize(value, position):
+        if value == player:
+            normalizedBoard.setPosition(position, True)
+        else:
+            normalizedBoard.setPosition(position, None)
+    board.forEach(normalize)
     return normalizedBoard
-
-def matchingBoard(gameBoard, patternBoard):
-    contains = True
-    for i in range(len(gameBoard)):
-        for j in range(len(gameBoard[i])):
-            if patternBoard[i][j] == True and gameBoard[i][j] == None:
-                contains = False
-    return contains
 
 def isWinningBoard(gameBoard, player):
     winBoards = winningBoards()
     winning = False
     normalizedGameBoard = normalizeBoardForPlayer(gameBoard, player)
     for i in range(len(winBoards)):
-        if matchingBoard(normalizedGameBoard, winBoards[i]):
+        if normalizedGameBoard.contains(winBoards[i]):
             winning = True
     return winning
 
@@ -91,7 +71,7 @@ class Game:
         if player == self.lastPlayer:
             print(f'{player} already went. Please wait.')
             return
-        self.board[position[0]][position[1]] = player
+        self.board.setPosition(position, player)
         self.history.append((player, position))
         self.lastPlayer = player
         self.firstPlayer = player if self.firstPlayer == None else self.firstPlayer
@@ -107,7 +87,8 @@ class Game:
     def getBoard(self):
         return self.board
     def printBoard(self):
-        for row in self.board:
+        rows = self.board.getRows()
+        for row in rows:
             print(f"{row[0] if row[0] != None else '-'} {row[1] if row[1] != None else '-'} {row[2] if row[2] != None else '-'}")
         return
     def winner(self):
