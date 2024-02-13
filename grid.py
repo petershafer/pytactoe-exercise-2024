@@ -16,41 +16,41 @@ class Grid:
     def setPosition(self, position, value):
         x, y = position
         if y > self.rows or y < 0:
-            raise ValueError('Invalid row.')
+            raise IndexError('Invalid row.')
         if x > self.columns or x < 0:
-            raise ValueError('Invalid column.')
+            raise IndexError('Invalid column.')
         self.values[x][y] = value
         return self
     def getPosition(self, position):
         x, y = position
         if y > self.rows or y < 0:
-            raise ValueError('Invalid row.')
+            raise IndexError('Invalid row.')
         if x > self.columns or x < 0:
-            raise ValueError('Invalid column.')
+            raise IndexError('Invalid column.')
         return self.values[x][y]
     def getRow(self, row):
         if row > self.rows or row < 0:
-            raise ValueError('Invalid row.')
+            raise IndexError('Invalid row.')
         return self.values[row]
     def setRow(self, row, values):
         if len(values) > self.columns:
             raise ValueError('Length mismatch for row.')
         if row > self.rows or row < 0:
-            raise ValueError('Invalid row.')
+            raise IndexError('Invalid row.')
         self.values[row] = values
         return self
     def getRows(self):
         return self.values
     def getColumn(self, column):
         if column > self.columns or column < 0:
-            raise ValueError('Invalid column.')
+            raise IndexError('Invalid column.')
         colValues = []
         for row in self.values:
             colValues.append(row[column])
         return colValues
     def setColumn(self, column, values):
         if column > self.columns or column < 0:
-            raise ValueError('Invalid column.')
+            raise IndexError('Invalid column.')
         if len(values) > self.rows:
             raise ValueError('Length mismatch for column.')
         for i in range(len(self.values)):
@@ -63,24 +63,24 @@ class Grid:
         return columns
     def setIndex(self, index, value):
         if index > self.rows * self.columns or index < 0:
-            raise ValueError('Invalid index.')
+            raise IndexError('Invalid index.')
         y = int(index / self.columns)
         x = index % self.columns
         if y > self.rows or y < 0:
-            raise ValueError('Invalid row.')
+            raise IndexError('Invalid row.')
         if x > self.columns or x < 0:
-            raise ValueError('Invalid column.')
+            raise IndexError('Invalid column.')
         self.values[y][x] = value
         return self
     def getIndex(self, index):
         if index > self.rows * self.columns or index < 0:
-            raise ValueError('Invalid index.')
+            raise IndexError('Invalid index.')
         y = int(index / self.columns)
         x = index % self.columns
         if y > self.rows or y < 0:
-            raise ValueError('Invalid row.')
+            raise IndexError('Invalid row.')
         if x > self.columns or x < 0:
-            raise ValueError('Invalid column.')
+            raise IndexError('Invalid column.')
         return self.values[y][x]
     def fill(self, value):
         for i in range(self.rows):

@@ -68,9 +68,13 @@ class Game:
         if self.gameOver:
             print('The game is over!')
             return
+        if player != 'x' and player != 'o':
+            raise ValueError('Invalid player')
         if player == self.lastPlayer:
             print(f'{player} already went. Please wait.')
             return
+        if self.board.getPosition(position) != None:
+            raise IndexError('Position occupied.')
         self.board.setPosition(position, player)
         self.history.append((player, position))
         self.lastPlayer = player

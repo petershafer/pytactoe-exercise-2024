@@ -25,7 +25,7 @@ class TestGridClass(unittest.TestCase):
     def testSetPositionBounds(self):
         msg = "setPosition() should not set values outside of the grid"
         myGrid = Grid(3, 3)
-        with self.assertRaises(ValueError, msg=msg):
+        with self.assertRaises(IndexError, msg=msg):
             myGrid.setPosition((-1, -1), 'x')
         with self.assertRaises(TypeError, msg=msg):
             myGrid.setPosition((0), 'x')
@@ -38,7 +38,7 @@ class TestGridClass(unittest.TestCase):
     def testGetPositionBounds(self):
         msg = 'getPosition() should not get values outside of the grid'
         myGrid = Grid(3, 3)
-        with self.assertRaises(ValueError, msg=msg):
+        with self.assertRaises(IndexError, msg=msg):
             myGrid.getPosition((-1, -1))
         with self.assertRaises(TypeError, msg=msg):
             myGrid.getPosition((0))
@@ -51,7 +51,7 @@ class TestGridClass(unittest.TestCase):
     def testGetRowBounds(self):
         msg = 'getRow() should not set values outside of the grid'
         myGrid = Grid(3, 3)
-        with self.assertRaises(ValueError, msg=msg):
+        with self.assertRaises(IndexError, msg=msg):
             myGrid.getRow(-1)
         with self.assertRaises(TypeError, msg=msg):
             myGrid.getRow('0')
@@ -64,7 +64,7 @@ class TestGridClass(unittest.TestCase):
     def testSetRowBounds(self):
         msg = 'setRow() should not set values outside of the grid'
         myGrid = Grid(3, 3)
-        with self.assertRaises(ValueError, msg=msg):
+        with self.assertRaises(IndexError, msg=msg):
             myGrid.setRow(-1, [1, 2, 3])
         with self.assertRaises(TypeError, msg=msg):
             myGrid.setRow('0', [1, 2, 3])
@@ -87,7 +87,7 @@ class TestGridClass(unittest.TestCase):
     def testGetColumnBounds(self):
         msg = 'getColumn() should not set values outside of the grid'
         myGrid = Grid(3, 3)
-        with self.assertRaises(ValueError, msg=msg):
+        with self.assertRaises(IndexError, msg=msg):
             myGrid.getColumn(-1)
         with self.assertRaises(TypeError, msg=msg):
             myGrid.getColumn('0')
@@ -100,7 +100,7 @@ class TestGridClass(unittest.TestCase):
     def testColumnRowBounds(self):
         msg = 'setColumn() should not set values outside of the grid'
         myGrid = Grid(3, 3)
-        with self.assertRaises(ValueError, msg=msg):
+        with self.assertRaises(IndexError, msg=msg):
             myGrid.setColumn(-1, [1, 2, 3])
         with self.assertRaises(TypeError, msg=msg):
             myGrid.setColumn('0', [1, 2, 3])
@@ -124,7 +124,7 @@ class TestGridClass(unittest.TestCase):
     def testSetIndexBounds(self):
         msg = 'setIndex() should not set values outside of the grid'
         myGrid = Grid(3, 3)
-        with self.assertRaises(ValueError, msg=msg):
+        with self.assertRaises(IndexError, msg=msg):
             myGrid.setIndex(-1, 'x')
         with self.assertRaises(TypeError, msg=msg):
             myGrid.setIndex('0', 'x')
@@ -138,7 +138,7 @@ class TestGridClass(unittest.TestCase):
     def testGetIndexBounds(self):
         msg = 'getIndex() should not set values outside of the grid'
         myGrid = Grid(3, 3)
-        with self.assertRaises(ValueError, msg=msg):
+        with self.assertRaises(IndexError, msg=msg):
             myGrid.getIndex(-1)
         with self.assertRaises(TypeError, msg=msg):
             myGrid.getIndex('0')
