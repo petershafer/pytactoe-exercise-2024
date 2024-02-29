@@ -89,7 +89,7 @@ class Game:
     def isOver(self):
         return self.gameOver
     def getBoard(self):
-        return self.board
+        return self.board.exportGrid()
     def printBoard(self):
         rows = self.board.getRows()
         for row in rows:
@@ -99,7 +99,7 @@ class Game:
         return self.gameWinner
     def export(self):
         return {
-            'winner': self.winner,
+            'winner': self.winner(),
             'firstPlayer': self.firstPlayer,
             'board': self.getBoard(),
             'history': self.history,
